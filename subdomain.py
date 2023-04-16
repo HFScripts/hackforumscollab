@@ -15,7 +15,7 @@ from ipaddress import ip_address, ip_network
 securitytrails_api_key = "1"
 shodan_api_key = "1"
 virustotal_api_key = "1"
-domain = "hackforums.net"
+domain = "graysale.co"
 
 def get_subdomains_from_securitytrails(domain, api_key):
     url = f"https://api.securitytrails.com/v1/domain/{domain}/subdomains"
