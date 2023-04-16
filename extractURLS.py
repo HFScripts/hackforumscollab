@@ -4,13 +4,16 @@ from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 import aiohttp
 
-site_ports = {
-    'agent.graysale.co': [80, 443, 8888, 22],
-    'graysale.co': [80, 443],
-    'h5.graysale.co': [80, 443, 8888, 22],
-    'server.graysale.co': [80, 443, 8888, 22],
-    'www.graysale.co': [80, 443, 8888, 22]
-}
+site_ports = {'agent.graysale.co': [80, 443, 8888, 22], 'email.graysale.co': [80, 443], 'graysale.co': [80, 443], 'h5.graysale.co': [80, 443, 8888, 22], 'lyncdiscover.graysale.co': [80, 443], 'msoid.graysale.co': [80, 443], 'server.graysale.co': [80, 443, 8888, 22], 'sip.graysale.co': [443], 'www.graysale.co': [80, 443, 8888, 22]}
+
+subdomains = ['agent.graysale.co', 'autodiscover.graysale.co', 'email.graysale.co', 'graysale.co', 'h5.graysale.co', 'lyncdiscover.graysale.co', 'msoid.graysale.co', 'server.graysale.co', 'sip.graysale.co', 'www.graysale.co']
+
+# Add default values if the lists are empty
+if not subdomains:
+    subdomains = ['example.com']
+
+if not site_ports:
+    site_ports = {subdomain: [80, 443] for subdomain in subdomains}
 
 async def extract_links_and_files(url, ssl_context=None):
     local_files = set()
@@ -43,6 +46,10 @@ async def extract_links_and_files(url, ssl_context=None):
 
 async def main():
     tasks = []
+    
+    # Add subdomains to site_ports dictionary
+    for subdomain in subdomains:
+        site_ports[subdomain] = [80, 443]
 
     for domain, ports in site_ports.items():
         for port in ports:
@@ -59,7 +66,6 @@ async def main():
     results = await asyncio.gather(*tasks)
 
     extracted_urls = []
-
 
     for res in results:
         if res:
