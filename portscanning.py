@@ -70,7 +70,7 @@ def main(domain_list: List[str]) -> Dict[str, List[int]]:
     return domain_ports
 
 
-no_cloudflare = ['agent.graysale.co', 'graysale.co', 'h5.graysale.co', 'server.graysale.co', 'www.graysale.co']
+no_cloudflare = ['agent.graysale.co', 'autodiscover.graysale.co', 'email.graysale.co', 'graysale.co', 'h5.graysale.co', 'lyncdiscover.graysale.co', 'msoid.graysale.co', 'server.graysale.co', 'sip.graysale.co', 'www.graysale.co']
 if __name__ == "__main__":
     site_ports = main(no_cloudflare)
     print(site_ports)
